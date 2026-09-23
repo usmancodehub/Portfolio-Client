@@ -84,13 +84,7 @@ function StackCard({ project, index }) {
 
         {/* ---------- CONTENT ---------- */}
         <div className="case-study-content">
-          {project.tags?.length > 0 && (
-            <div className="case-study-tags">
-              {project.tags.map((t) => (
-                <span key={t}>{t}</span>
-              ))}
-            </div>
-          )}
+          
 
           <h3 className="case-study-title">{project.title}</h3>
 
