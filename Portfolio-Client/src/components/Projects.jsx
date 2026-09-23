@@ -71,15 +71,6 @@ function CaseStudyCard({ project }) {
 
       {/* ---------- CONTENT ---------- */}
       <div className="case-study-content">
-        {/* Tech chips */}
-        {project.tags?.length > 0 && (
-          <div className="case-study-tags">
-            {project.tags.map((t) => (
-              <span key={t}>{t}</span>
-            ))}
-          </div>
-        )}
-
         {/* Title */}
         <h3 className="case-study-title">{project.title}</h3>
 
