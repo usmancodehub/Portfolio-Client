@@ -790,7 +790,7 @@ nav {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: blur(18px) saturate(1.2) brightness(0.75);
+  filter: blur(8px) saturate(1.2) brightness(0.75);
   transform: scale(1.15);
   display: block;
 }
