@@ -742,7 +742,7 @@ nav {
   padding: 90px 0;
   border-bottom: 1px solid var(--border);
   position: relative;
-  overflow: hidden;
+  overflow: visible;   /* ← REQUIRED for sticky */
 }
 
 .project-filters {
@@ -752,11 +752,19 @@ nav {
   margin-bottom: 30px;
 }
 
-.case-study-list {
+.stack-wrapper {
+  width: min(1220px, 90%);
+  margin: 40px auto 0;
   display: flex;
   flex-direction: column;
-  gap: 70px;
-  margin-top: 40px;
+  gap: 40px;
+  padding-bottom: 100px;
+}
+
+.stack-item {
+  position: sticky;
+  /* top is set inline via style attribute */
+  will-change: transform;
 }
 
 .case-study-card {
@@ -768,14 +776,21 @@ nav {
   display: flex;
   align-items: stretch;
   isolation: isolate;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-              box-shadow 0.5s ease;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.6s ease;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.55),
+    0 -12px 40px rgba(0, 0, 0, 0.35);
+  transform-origin: top center;
+  width: 100%;
+  max-width: 100%;
 }
 
 .case-study-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+  transform: translateY(-4px);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.65),
+    0 -12px 40px rgba(0, 0, 0, 0.4);
 }
 
 .case-study-bg {
@@ -2349,3 +2364,20 @@ body.has-custom-cursor * {
 
 
 
+/* =====================================================
+   THE STACK EFFECT
+   Cards behind shrink & fade as new ones slide over
+   ===================================================== */
+
+/* Card 1 is full size, later cards start slightly scaled down */
+.stack-item:first-child .case-study-card {
+  transform: scale(1);
+}
+
+.stack-item:not(:first-child) .case-study-card {
+  transform: scale(0.96);
+}
+
+.stack-item:not(:first-child) .case-study-card:hover {
+  transform: scale(0.98);
+}
