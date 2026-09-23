@@ -76,6 +76,7 @@ function StackCard({ project, index, total }) {
       <article className={`case-study ${isEven ? "img-right" : "img-left"}`}>
         {/* ---------- TEXT SIDE ---------- */}
         <div className="case-study-info">
+
           <h3 className="case-study-title">{project.title}</h3>
 
           <p className="case-study-desc">{project.description}</p>
