@@ -529,11 +529,6 @@ nav {
 .about-badge-3 { bottom: 10%; left: 8%; animation-delay: 2.4s; }
 .about-badge-4 { bottom: 6%; right: 10%; animation-delay: 3.6s; }
 
-@keyframes badgeFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
 .about-content {
   display: flex;
   flex-direction: column;
@@ -790,7 +785,7 @@ nav {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: blur(6px) saturate(1.2) brightness(0.75);
+  filter: blur(8px) saturate(1.2) brightness(0.75);
   transform: scale(1.15);
   display: block;
 }
@@ -999,29 +994,27 @@ nav {
     gap: 10px;
   }
   .case-study-btn-arrow { font-size: 16px; }
-  .case-study-bg img { filter: blur(14px) saturate(1.2) brightness(0.7); }
+  .case-study-bg img { filter: blur(8px) saturate(1.2) brightness(0.7); }
 }
 
 /* =====================================================
-   MARQUEE — Single Row, Outline + Solid Mixed
+   CONTACT MARQUEE — Simple Horizontal Strip
    ===================================================== */
 
-.marquee-section {
+.contact-marquee-section {
   position: relative;
-  padding: 28px 0;
-  background: #05030a;
+  padding: 60px 0;
   overflow: hidden;
+  background: #05030a;
   border-top: 1px solid rgba(211, 42, 255, 0.08);
   border-bottom: 1px solid rgba(211, 42, 255, 0.08);
 }
 
-section.marquee-section {
-  padding: 28px 0;
-  border-bottom: 1px solid rgba(211, 42, 255, 0.08);
+section.contact-marquee-section {
+  padding: 60px 0;
 }
 
-/* ---------- Row ---------- */
-.marquee-row {
+.cm-row {
   display: flex;
   overflow: hidden;
   white-space: nowrap;
@@ -1042,95 +1035,86 @@ section.marquee-section {
   );
 }
 
-/* ---------- Track ---------- */
-.marquee-track {
+.cm-track {
   display: flex;
   align-items: center;
-  animation: marqueeScroll 60s linear infinite;
+  animation: cmScroll 40s linear infinite;
   will-change: transform;
 }
 
-@keyframes marqueeScroll {
+@keyframes cmScroll {
   from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  to   { transform: translateX(-33.333%); }
 }
 
-/* ---------- Items (shared) ---------- */
-.marquee-item {
-  font-size: clamp(22px, 3vw, 42px);   /* ← much smaller */
+.contact-marquee-section:hover .cm-track {
+  animation-play-state: paused;
 }
 
-.marquee-text {
+.cm-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0 0.9em;
+  white-space: nowrap;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: clamp(28px, 4vw, 52px);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.cm-text {
   display: inline-block;
 }
 
-/* ---------- Stars ---------- */
-.marquee-star {
+.cm-star {
   color: currentColor;
+  font-size: 0.6em;
   flex-shrink: 0;
-  width: 0.55em;
-  height: 0.55em;
-  animation: starSpin 12s linear infinite;
-  margin: 0 0.55em;   /* ← NEW: space on both sides */
+  opacity: 0.85;
 }
 
-@keyframes starSpin {
-  to { transform: rotate(360deg); }
-}
-
-/* ---------- Outline style ---------- */
-.marquee-item-outline {
+.cm-item-outline {
   color: rgba(180, 169, 197, 0.55);
 }
 
-.marquee-item-outline .marquee-text {
+.cm-item-outline .cm-text {
   color: transparent;
-  -webkit-text-stroke: 1.5px rgba(180, 169, 197, 0.45);
-  text-stroke: 1.5px rgba(180, 169, 197, 0.45);
+  -webkit-text-stroke: 1.2px rgba(180, 169, 197, 0.5);
+  text-stroke: 1.2px rgba(180, 169, 197, 0.5);
 }
 
-.marquee-item-outline .marquee-star {
-  opacity: 0.55;
-}
-
-/* ---------- Solid style ---------- */
-.marquee-item-solid {
+.cm-item-solid {
   color: #f8f5ff;
 }
 
-.marquee-item-solid .marquee-text {
+.cm-item-solid .cm-text {
   color: #f8f5ff;
   text-shadow:
-    0 0 20px rgba(255, 255, 255, 0.15),
-    0 0 40px rgba(255, 0, 168, 0.08);
+    0 0 18px rgba(255, 255, 255, 0.25),
+    0 0 36px rgba(255, 0, 168, 0.12);
 }
 
-.marquee-item-solid .marquee-star {
-  color: #f8f5ff;
-  opacity: 0.9;
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+.cm-item-solid .cm-star {
+  opacity: 1;
+  color: #ff00a8;
+  filter: drop-shadow(0 0 6px rgba(255, 0, 168, 0.7));
 }
 
-/* ---------- Responsive ---------- */
 @media (max-width: 900px) {
-  .marquee-section { padding: 52px 0; }
-  section.marquee-section { padding: 52px 0; }
+  .contact-marquee-section { padding: 45px 0; }
+  section.contact-marquee-section { padding: 45px 0; }
+  .cm-item { font-size: clamp(22px, 4.5vw, 36px); }
 }
 
 @media (max-width: 600px) {
-  .marquee-section { padding: 38px 0; }
-  section.marquee-section { padding: 38px 0; }
-
-  .marquee-item-outline .marquee-text {
-    -webkit-text-stroke: 1px rgba(180, 169, 197, 0.55);
-  }
+  .contact-marquee-section { padding: 34px 0; }
+  section.contact-marquee-section { padding: 34px 0; }
+  .cm-item { font-size: clamp(18px, 5.5vw, 28px); padding: 0 0.7em; }
+  .cm-star { font-size: 0.5em; }
 }
 
-/* ---------- Reduced motion ---------- */
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation: none; }
-  .marquee-star { animation: none; }
-}
 /* ================= CONTACT ================= */
 .contact-grid {
   display: grid;
@@ -2342,285 +2326,5 @@ body.has-custom-cursor * {
   body.has-custom-cursor,
   body.has-custom-cursor * {
     cursor: auto !important;
-  }
-}
-
-
-
-
-
-/* =====================================================
-   PROJECTS — STACKED CARDS SCROLL ANIMATION
-   ===================================================== */
-
-.projects-section {
-  padding: 90px 0;
-  border-bottom: 1px solid var(--border);
-  position: relative;
-}
-
-/* ---------- The stacking wrapper ---------- */
-.stack-wrapper {
-  width: min(1220px, 90%);
-  margin: 40px auto 0;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-/* Each card is sticky at the top of the viewport */
-.stack-item {
-  position: sticky;
-  /* top is set inline per card via style attribute */
-  /* Ensure sticky works: parent must not have overflow hidden */
-  will-change: transform;
-}
-
-/* ---------- Case study card look ---------- */
-.case-study {
-  display: grid;
-  grid-template-columns: 1fr 1.25fr;
-  gap: 70px;
-  align-items: center;
-
-  background: linear-gradient(145deg, #0f0a1a, #08050e);
-  border: 1px solid rgba(211, 42, 255, 0.18);
-  border-radius: 20px;
-  padding: 50px 55px;
-  box-shadow:
-    0 40px 100px rgba(0, 0, 0, 0.7),
-    0 10px 40px rgba(255, 0, 168, 0.08);
-
-  min-height: 420px;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  transform-origin: top center;
-}
-
-.case-study.img-right {
-  grid-template-columns: 1fr 1.25fr;
-}
-
-.case-study.img-left {
-  grid-template-columns: 1.25fr 1fr;
-}
-
-.case-study.img-left .case-study-info {
-  order: 2;
-}
-
-.case-study.img-left .case-study-image-wrap {
-  order: 1;
-}
-
-/* ---------- Text side ---------- */
-.case-study-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.case-study-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 24px;
-}
-
-.case-study-tags span {
-  padding: 8px 16px;
-  border-radius: 30px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(180, 169, 197, 0.18);
-  color: #d4ccdf;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  transition: 0.3s;
-}
-
-.case-study-tags span:hover {
-  border-color: var(--pink);
-  color: #ff9ce0;
-  background: rgba(255, 0, 168, 0.06);
-}
-
-.case-study-title {
-  font-size: clamp(32px, 4vw, 56px);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -1.5px;
-  color: #f8f5ff;
-  margin-bottom: 24px;
-}
-
-.case-study-desc {
-  font-size: 15px;
-  line-height: 1.75;
-  color: #b4a9c5;
-  max-width: 520px;
-  margin-bottom: 20px;
-}
-
-.case-study-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 18px;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #f0b429;
-  text-decoration: none;
-  padding-bottom: 4px;
-  border-bottom: 2px solid rgba(240, 180, 41, 0.4);
-  transition: 0.3s;
-  width: fit-content;
-}
-
-.case-study-cta:hover {
-  color: #ffc857;
-  border-bottom-color: #ffc857;
-  transform: translateX(6px);
-}
-
-.case-study-arrow {
-  font-size: 17px;
-  transition: transform 0.3s;
-}
-
-.case-study-cta:hover .case-study-arrow {
-  transform: translate(4px, -4px);
-}
-
-/* ---------- Image side ---------- */
-.case-study-image-wrap {
-  position: relative;
-}
-
-.case-study-image {
-  position: relative;
-  border-radius: 14px;
-  overflow: hidden;
-  background: #0d0818;
-  border: 1px solid rgba(211, 42, 255, 0.18);
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.5),
-    0 10px 40px rgba(255, 0, 168, 0.12);
-  aspect-ratio: 16 / 10;
-  display: grid;
-  place-items: center;
-  z-index: 2;
-}
-
-.case-study-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.case-study-no-image {
-  font-size: 60px;
-  color: rgba(180, 169, 197, 0.4);
-}
-
-.case-study-glow {
-  position: absolute;
-  inset: 10% -5% -10% 5%;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(255, 0, 168, 0.28),
-    rgba(161, 0, 255, 0.12) 40%,
-    transparent 70%
-  );
-  filter: blur(60px);
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.7;
-  transition: 0.6s;
-}
-
-/* =====================================================
-   THE STACK EFFECT
-   Cards behind shrink & fade as new cards slide over
-   ===================================================== */
-
-/* Every card starts slightly scaled-down after the first.
-   This uses CSS to fake the "previous card shrinking" effect. */
-.stack-item:not(:first-child) .case-study {
-  transform: scale(0.95);
-}
-
-.stack-item:not(:first-child) .case-study:hover {
-  transform: scale(0.97);
-}
-
-/* The card nearest the top of the stack is bigger */
-.stack-item:first-child .case-study {
-  transform: scale(1);
-}
-
-/* Add a subtle gradient overlay at the top of each stacked
-   card to hint at the one behind it */
-.stack-item:not(:first-child) .case-study::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.5);
-}
-
-/* ---------- Responsive ---------- */
-@media (max-width: 1000px) {
-  .case-study,
-  .case-study.img-right,
-  .case-study.img-left {
-    grid-template-columns: 1fr;
-    gap: 30px;
-    padding: 34px;
-    min-height: auto;
-  }
-
-  .case-study.img-left .case-study-info { order: 1; }
-  .case-study.img-left .case-study-image-wrap { order: 2; }
-
-  .case-study-title {
-    font-size: clamp(28px, 5vw, 40px);
-  }
-
-  /* Reduce stacking offsets on tablet */
-  .stack-item {
-    top: calc(70px + var(--stack-offset, 12px)) !important;
-  }
-}
-
-@media (max-width: 600px) {
-  .projects-section { padding: 60px 0; }
-  .stack-wrapper { gap: 26px; margin-top: 30px; }
-
-  .case-study {
-    padding: 24px;
-    border-radius: 16px;
-    gap: 22px;
-  }
-
-  .case-study-tags { gap: 8px; margin-bottom: 16px; }
-  .case-study-tags span { padding: 6px 12px; font-size: 10px; letter-spacing: 1px; }
-
-  .case-study-title { font-size: 28px; margin-bottom: 16px; letter-spacing: -0.5px; }
-  .case-study-desc { font-size: 13px; line-height: 1.6; }
-  .case-study-cta { font-size: 12px; letter-spacing: 1.5px; }
-}
-
-/* ---------- Reduced Motion ---------- */
-@media (prefers-reduced-motion: reduce) {
-  .stack-item {
-    position: static;
-  }
-  .case-study {
-    transition: none !important;
-    transform: none !important;
   }
 }
