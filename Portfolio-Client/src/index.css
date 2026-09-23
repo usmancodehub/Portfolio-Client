@@ -1003,37 +1003,25 @@ nav {
 }
 
 /* =====================================================
-   CONTACT MARQUEE — Crossed Rows (X Pattern)
+   MARQUEE — Single Row, Outline + Solid Mixed
    ===================================================== */
 
-.contact-marquee-section {
+.marquee-section {
   position: relative;
-  padding: 100px 0;
-  overflow: hidden;
+  padding: 28px 0;
   background: #05030a;
-  border-top: 1px solid rgba(211, 42, 255, 0.06);
-  border-bottom: 1px solid rgba(211, 42, 255, 0.06);
+  overflow: hidden;
+  border-top: 1px solid rgba(211, 42, 255, 0.08);
+  border-bottom: 1px solid rgba(211, 42, 255, 0.08);
 }
 
-section.contact-marquee-section {
-  padding: 100px 0;
+section.marquee-section {
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(211, 42, 255, 0.08);
 }
 
-.contact-marquee-stage {
-  position: relative;
-  width: 160%;
-  margin-left: -30%;
-  height: 220px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0;
-}
-
-.cm-row {
-  position: absolute;
-  left: 0;
-  right: 0;
+/* ---------- Row ---------- */
+.marquee-row {
   display: flex;
   overflow: hidden;
   white-space: nowrap;
@@ -1041,167 +1029,107 @@ section.contact-marquee-section {
   mask-image: linear-gradient(
     90deg,
     transparent 0%,
-    black 8%,
-    black 92%,
+    black 6%,
+    black 94%,
     transparent 100%
   );
   -webkit-mask-image: linear-gradient(
     90deg,
     transparent 0%,
-    black 8%,
-    black 92%,
+    black 6%,
+    black 94%,
     transparent 100%
   );
 }
 
-.cm-row-1 {
-  top: 20px;
-  transform: rotate(-5deg);
-  transform-origin: center center;
-  z-index: 2;
-}
-
-.cm-row-2 {
-  top: 105px;
-  transform: rotate(5deg);
-  transform-origin: center center;
-  z-index: 1;
-}
-
-.cm-track {
+/* ---------- Track ---------- */
+.marquee-track {
   display: flex;
   align-items: center;
-  animation: cmScroll 55s linear infinite;
+  animation: marqueeScroll 60s linear infinite;
   will-change: transform;
 }
 
-.cm-track-reverse {
-  animation-direction: reverse;
-  animation-duration: 65s;
-}
-
-@keyframes cmScroll {
+@keyframes marqueeScroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
 
-.cm-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4em;
-  padding: 0 0.5em;
-  white-space: nowrap;
-  font-family: 'Inter', sans-serif;
-  font-weight: 800;
-  font-size: clamp(28px, 3.8vw, 48px);
-  letter-spacing: -0.02em;
-  line-height: 1.05;
+/* ---------- Items (shared) ---------- */
+.marquee-item {
+  font-size: clamp(22px, 3vw, 42px);   /* ← much smaller */
 }
 
-.cm-text {
+.marquee-text {
   display: inline-block;
 }
 
-.cm-star {
+/* ---------- Stars ---------- */
+.marquee-star {
   color: currentColor;
   flex-shrink: 0;
-  width: 0.5em;
-  height: 0.5em;
-  animation: cmStarSpin 14s linear infinite;
+  width: 0.55em;
+  height: 0.55em;
+  animation: starSpin 12s linear infinite;
 }
 
-@keyframes cmStarSpin {
+@keyframes starSpin {
   to { transform: rotate(360deg); }
 }
 
-.cm-item-outline {
-  color: rgba(180, 169, 197, 0.5);
+/* ---------- Outline style ---------- */
+.marquee-item-outline {
+  color: rgba(180, 169, 197, 0.55);
 }
 
-.cm-item-outline .cm-text {
+.marquee-item-outline .marquee-text {
   color: transparent;
-  -webkit-text-stroke: 1.2px rgba(180, 169, 197, 0.5);
-  text-stroke: 1.2px rgba(180, 169, 197, 0.5);
+  -webkit-text-stroke: 1.5px rgba(180, 169, 197, 0.45);
+  text-stroke: 1.5px rgba(180, 169, 197, 0.45);
 }
 
-.cm-item-solid {
+.marquee-item-outline .marquee-star {
+  opacity: 0.55;
+}
+
+/* ---------- Solid style ---------- */
+.marquee-item-solid {
   color: #f8f5ff;
 }
 
-.cm-item-solid .cm-text {
+.marquee-item-solid .marquee-text {
   color: #f8f5ff;
   text-shadow:
-    0 0 18px rgba(255, 255, 255, 0.25),
-    0 0 36px rgba(255, 0, 168, 0.12);
+    0 0 20px rgba(255, 255, 255, 0.15),
+    0 0 40px rgba(255, 0, 168, 0.08);
 }
 
-.cm-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 26px;
-  margin: 0 12px;
-  border: 1.2px solid rgba(180, 169, 197, 0.4);
-  border-radius: 60px;
-  background: rgba(5, 3, 10, 0.75);
-  backdrop-filter: blur(4px);
-  transition: 0.3s;
-  flex-shrink: 0;
+.marquee-item-solid .marquee-star {
+  color: #f8f5ff;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
 }
 
-.cm-pill-text {
-  font-family: 'Inter', sans-serif;
-  font-weight: 800;
-  font-size: clamp(18px, 2.2vw, 30px);
-  letter-spacing: -0.01em;
-  color: transparent;
-  -webkit-text-stroke: 1.2px rgba(180, 169, 197, 0.6);
-  text-stroke: 1.2px rgba(180, 169, 197, 0.6);
-  white-space: nowrap;
-}
-
-.cm-pill:hover {
-  border-color: rgba(255, 0, 168, 0.6);
-  background: rgba(255, 0, 168, 0.05);
-}
-
-.cm-pill:hover .cm-pill-text {
-  -webkit-text-stroke: 1.2px rgba(255, 0, 168, 0.95);
-}
-
+/* ---------- Responsive ---------- */
 @media (max-width: 900px) {
-  .contact-marquee-section { padding: 80px 0; }
-  section.contact-marquee-section { padding: 80px 0; }
-  .contact-marquee-stage {
-    width: 175%;
-    margin-left: -37.5%;
-    height: 180px;
-  }
-  .cm-row-1 { top: 12px; }
-  .cm-row-2 { top: 82px; }
-  .cm-item { font-size: clamp(22px, 4vw, 34px); }
-  .cm-pill { padding: 6px 18px; margin: 0 8px; border-radius: 40px; }
-  .cm-pill-text { font-size: clamp(15px, 2.4vw, 22px); }
+  .marquee-section { padding: 52px 0; }
+  section.marquee-section { padding: 52px 0; }
 }
 
 @media (max-width: 600px) {
-  .contact-marquee-section { padding: 60px 0; }
-  section.contact-marquee-section { padding: 60px 0; }
-  .contact-marquee-stage {
-    width: 200%;
-    margin-left: -50%;
-    height: 130px;
-  }
-  .cm-row-1 { top: 8px; }
-  .cm-row-2 { top: 62px; }
-  .cm-item { font-size: clamp(18px, 5vw, 26px); }
-  .cm-item-outline .cm-text {
+  .marquee-section { padding: 38px 0; }
+  section.marquee-section { padding: 38px 0; }
+
+  .marquee-item-outline .marquee-text {
     -webkit-text-stroke: 1px rgba(180, 169, 197, 0.55);
   }
-  .cm-pill { padding: 5px 12px; margin: 0 6px; border-radius: 30px; }
-  .cm-pill-text { font-size: clamp(12px, 3.2vw, 16px); }
 }
 
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .marquee-star { animation: none; }
+}
 /* ================= CONTACT ================= */
 .contact-grid {
   display: grid;

@@ -1,6 +1,8 @@
 import React from "react";
 
 const PHRASES = [
+  { text: "Developing ERP & CRM Platforms", style: "outline" },
+  { text: "Creating AI-Powered Solutions", style: "solid" },
   { text: "Building Scalable Web Applications", style: "outline" },
   { text: "Crafting Modern User Experiences", style: "solid" },
 ];
@@ -18,9 +20,9 @@ export default function Marquee() {
               className={`marquee-item marquee-item-${phrase.style}`}
               key={i}
             >
-            
+              <Star />
               <span className="marquee-text">{phrase.text}</span>
-              < Star />
+              <Star />
             </span>
           ))}
         </div>
