@@ -40,65 +40,58 @@ export default function Projects() {
             </button>
           ))}
         </div>
-      </div>
 
-      {/* ---------- STACKED CARDS ---------- */}
-      <div className="stack-wrapper">
-        {visible.map((project, i) => (
-          <StackCard
-            key={project._id}
-            project={project}
-            index={i}
-            total={visible.length}
-          />
-        ))}
+        <div className="case-study-list">
+          {visible.map((project) => (
+            <CaseStudyCard key={project._id} project={project} />
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
 /* ---------------------------------------------------------------------------
-   A single stacked card
+   Single case study card — blurred background image + content on top
 --------------------------------------------------------------------------- */
-function StackCard({ project, index, total }) {
-  const isEven = index % 2 === 0;
-
+function CaseStudyCard({ project }) {
   return (
-    <div
-      className="stack-item"
-      style={{
-        // Each card sticks slightly lower than the previous
-        top: `calc(80px + ${index * 18}px)`,
-        // z-index increases so later cards stack on top
-        zIndex: index + 1,
-      }}
-    >
-      <article className={`case-study ${isEven ? "img-right" : "img-left"}`}>
-        {/* ---------- TEXT SIDE ---------- */}
-        <div className="case-study-info">
+    <article className="case-study-card reveal">
+      {/* ---------- BLURRED BACKGROUND ---------- */}
+      <div className="case-study-bg">
+        {project.image ? (
+          <img src={fileUrl(project.image)} alt="" aria-hidden="true" />
+        ) : (
+          <div className="case-study-bg-fallback"></div>
+        )}
+      </div>
 
-          <h3 className="case-study-title">{project.title}</h3>
+      {/* ---------- DARK OVERLAY (readability) ---------- */}
+      <div className="case-study-overlay"></div>
 
-          <p className="case-study-desc">{project.description}</p>
-
-          <Link to={`/project/${project._id}`} className="case-study-cta">
-            VIEW CASE STUDY
-            <span className="case-study-arrow">↗</span>
-          </Link>
-        </div>
-
-        {/* ---------- IMAGE SIDE ---------- */}
-        <div className="case-study-image-wrap">
-          <div className="case-study-image">
-            {project.image ? (
-              <img src={fileUrl(project.image)} alt={project.title} />
-            ) : (
-              <div className="case-study-no-image">▣</div>
-            )}
+      {/* ---------- CONTENT ---------- */}
+      <div className="case-study-content">
+        {/* Tech chips */}
+        {project.tags?.length > 0 && (
+          <div className="case-study-tags">
+            {project.tags.map((t) => (
+              <span key={t}>{t}</span>
+            ))}
           </div>
-          <div className="case-study-glow"></div>
-        </div>
-      </article>
-    </div>
+        )}
+
+        {/* Title */}
+        <h3 className="case-study-title">{project.title}</h3>
+
+        {/* Short description */}
+        <p className="case-study-desc">{project.description}</p>
+
+        {/* CTA */}
+        <Link to={`/project/${project._id}`} className="case-study-btn">
+          <span>VIEW CASE STUDY</span>
+          <span className="case-study-btn-arrow">↗</span>
+        </Link>
+      </div>
+    </article>
   );
 }
