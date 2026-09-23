@@ -786,8 +786,13 @@ nav {
 }
 
 .case-study-bg img {
-  filter: blur(4px) saturate(1.1) brightness(0.85);
-  transform: scale(1.08);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: blur(6px) saturate(1.2) brightness(0.75);
+  transform: scale(1.15);
+  display: block;
 }
 
 .case-study-bg-fallback {
@@ -800,13 +805,23 @@ nav {
 }
 
 .case-study-overlay {
-  background: linear-gradient(
-    100deg,
-    rgba(5, 3, 10, 0.75) 0%,
-    rgba(5, 3, 10, 0.6) 40%,
-    rgba(5, 3, 10, 0.35) 70%,
-    rgba(5, 3, 10, 0.15) 100%
-  );
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      100deg,
+      rgba(5, 3, 10, 0.92) 0%,
+      rgba(5, 3, 10, 0.82) 40%,
+      rgba(5, 3, 10, 0.55) 70%,
+      rgba(5, 3, 10, 0.35) 100%
+    ),
+    radial-gradient(
+      ellipse at 15% 50%,
+      rgba(0, 0, 0, 0.4),
+      transparent 70%
+    );
+  pointer-events: none;
 }
 
 .case-study-content {
