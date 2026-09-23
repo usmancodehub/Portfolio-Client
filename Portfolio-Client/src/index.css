@@ -966,22 +966,17 @@ nav {
 }
 
 .case-study-image {
-  position: relative;
-  border-radius: 14px;
-  overflow: hidden;
-  background: #0d0818;
-  border: 1px solid rgba(211, 42, 255, 0.18);
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.5),
-    0 10px 40px rgba(255, 0, 168, 0.12);
-  aspect-ratio: 16 / 10;
-  display: grid;
-  place-items: center;
-  z-index: 2;
-
-  /* ✅ FIX: constrain the image container */
-  width: 100%;
-  max-width: 100%;
+    align-items: center;
+    background-color: #0d0d12;
+    border: 1px solid #ffffff1f;
+    border-radius: 16px;
+    cursor: pointer;
+    display: flex;
+    height: 380px;
+    justify-content: center;
+    max-width: 650px;
+    overflow: hidden;
+    width: 100%;
 }
 
 .case-study-image img {
