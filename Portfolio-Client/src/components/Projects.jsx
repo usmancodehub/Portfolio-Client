@@ -40,49 +40,68 @@ export default function Projects() {
             </button>
           ))}
         </div>
+      </div>
 
-        <div className="case-study-list">
-          {visible.map((project) => (
-            <CaseStudyCard key={project._id} project={project} />
-          ))}
-        </div>
+      {/* ---------- STACKED CARDS ---------- */}
+      <div className="stack-wrapper">
+        {visible.map((project, i) => (
+          <StackCard
+            key={project._id}
+            project={project}
+            index={i}
+            total={visible.length}
+          />
+        ))}
       </div>
     </section>
   );
 }
 
 /* ---------------------------------------------------------------------------
-   Single case study card — blurred background image + content on top
+   A single stacked card
 --------------------------------------------------------------------------- */
-function CaseStudyCard({ project }) {
+function StackCard({ project, index }) {
   return (
-    <article className="case-study-card reveal">
-      {/* ---------- BLURRED BACKGROUND ---------- */}
-      <div className="case-study-bg">
-        {project.image ? (
-          <img src={fileUrl(project.image)} alt="" aria-hidden="true" />
-        ) : (
-          <div className="case-study-bg-fallback"></div>
-        )}
-      </div>
+    <div
+      className="stack-item"
+      style={{
+        top: `calc(80px + ${index * 18}px)`,
+        zIndex: index + 1,
+      }}
+    >
+      <article className="case-study-card">
+        {/* ---------- BLURRED BACKGROUND ---------- */}
+        <div className="case-study-bg">
+          {project.image ? (
+            <img src={fileUrl(project.image)} alt="" aria-hidden="true" />
+          ) : (
+            <div className="case-study-bg-fallback"></div>
+          )}
+        </div>
 
-      {/* ---------- DARK OVERLAY (readability) ---------- */}
-      <div className="case-study-overlay"></div>
+        {/* ---------- DARK OVERLAY ---------- */}
+        <div className="case-study-overlay"></div>
 
-      {/* ---------- CONTENT ---------- */}
-      <div className="case-study-content">
-        {/* Title */}
-        <h3 className="case-study-title">{project.title}</h3>
+        {/* ---------- CONTENT ---------- */}
+        <div className="case-study-content">
+          {project.tags?.length > 0 && (
+            <div className="case-study-tags">
+              {project.tags.map((t) => (
+                <span key={t}>{t}</span>
+              ))}
+            </div>
+          )}
 
-        {/* Short description */}
-        <p className="case-study-desc">{project.description}</p>
+          <h3 className="case-study-title">{project.title}</h3>
 
-        {/* CTA */}
-        <Link to={`/project/${project._id}`} className="case-study-btn">
-          <span>VIEW CASE STUDY</span>
-          <span className="case-study-btn-arrow">↗</span>
-        </Link>
-      </div>
-    </article>
+          <p className="case-study-desc">{project.description}</p>
+
+          <Link to={`/project/${project._id}`} className="case-study-btn">
+            <span>VIEW CASE STUDY</span>
+            <span className="case-study-btn-arrow">↗</span>
+          </Link>
+        </div>
+      </article>
+    </div>
   );
 }
