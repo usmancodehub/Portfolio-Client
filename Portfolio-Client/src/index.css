@@ -1320,6 +1320,7 @@ footer {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  margin-top: 16px;
 }
 
 .pd-tags span {
@@ -1332,19 +1333,17 @@ footer {
 }
 
 .pd-hero-image {
+  width: 100%;
+  max-width: 650px;
+  height: 380px; /* Fixed height for image container */
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid var(--border);
-  background:
-    radial-gradient(circle at 20% 20%, rgba(170,0,255,.18), transparent 60%),
-    radial-gradient(circle at 90% 80%, rgba(255,0,70,.12), transparent 55%),
-    #10091b;
-  aspect-ratio: 16 / 10;
-  display: grid;
-  place-items: center;
-  box-shadow: 0 20px 60px rgba(255, 0, 168, 0.12);
-  max-height: 460px;
-  padding: 6px;
+  background-color: #0d0d12;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .pd-hero-image img {

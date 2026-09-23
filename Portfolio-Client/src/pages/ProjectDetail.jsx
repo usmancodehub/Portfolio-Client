@@ -83,6 +83,16 @@ export default function ProjectDetail() {
       (i) => (i - 1 + lightboxImages.length) % lightboxImages.length
     );
 
+  // Helper function to safely extract tags array whether it's an Array or String
+  const getParsedTags = (tags) => {
+    if (!tags) return [];
+    if (Array.isArray(tags)) return tags;
+    if (typeof tags === "string") {
+      return tags.split(",").map((t) => t.trim()).filter(Boolean);
+    }
+    return [];
+  };
+
   if (loading) {
     return (
       <div className="pd-loading">
@@ -95,7 +105,7 @@ export default function ProjectDetail() {
   if (!project) return null;
 
   const gallery = project.gallery || [];
-  const allImages = [project.image, ...gallery].filter(Boolean);
+  const parsedTags = getParsedTags(project.tags);
 
   return (
     <main className="pd">
@@ -128,7 +138,7 @@ export default function ProjectDetail() {
               )}
               <div>
                 <span>Category</span>
-                <strong>{project.category.toUpperCase()}</strong>
+                <strong>{project.category?.toUpperCase()}</strong>
               </div>
             </div>
 
@@ -155,23 +165,28 @@ export default function ProjectDetail() {
               )}
             </div>
 
+            {/* FIXED TAGS SECTION */}
             <div className="pd-tags">
-              {project.tags?.map((t) => (
-                <span key={t}>{t}</span>
+              {parsedTags.map((t, idx) => (
+                <span key={idx} className="pd-tag-pill">
+                  {t}
+                </span>
               ))}
             </div>
           </div>
 
-          <div className="pd-hero-image">
-  {project.image ? (
-    <img
-      src={fileUrl(project.image)}
-      alt={project.title}
-    />
-  ) : (
-    <div className="pd-no-image">No image</div>
-  )}
-</div>
+          {/* FIXED HERO IMAGE CONTAINER */}
+          <div className="pd-hero-image" onClick={() => openLightbox(0)}>
+            {project.image ? (
+              <img
+                src={fileUrl(project.image)}
+                alt={project.title}
+                className="pd-main-img"
+              />
+            ) : (
+              <div className="pd-no-image">No image</div>
+            )}
+          </div>
         </div>
 
         {/* GALLERY */}
@@ -216,7 +231,7 @@ export default function ProjectDetail() {
             <h3>Project Info</h3>
             <div className="pd-info-row">
               <span>Category</span>
-              <strong>{project.category.toUpperCase()}</strong>
+              <strong>{project.category?.toUpperCase()}</strong>
             </div>
             {project.role && (
               <div className="pd-info-row">
@@ -232,7 +247,7 @@ export default function ProjectDetail() {
             )}
             <div className="pd-info-row">
               <span>Tech Stack</span>
-              <strong>{project.tags?.join(", ") || "—"}</strong>
+              <strong>{parsedTags.join(", ") || "—"}</strong>
             </div>
 
             {project.link && (
