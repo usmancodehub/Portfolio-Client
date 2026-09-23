@@ -1071,6 +1071,7 @@ section.marquee-section {
   width: 0.55em;
   height: 0.55em;
   animation: starSpin 12s linear infinite;
+  margin: 0 0.55em;   /* ← NEW: space on both sides */
 }
 
 @keyframes starSpin {
