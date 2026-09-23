@@ -824,6 +824,7 @@ nav {
 }
 
 /* ---------- Case study card look ---------- */
+/* ---------- Case study card look ---------- */
 .case-study {
   display: grid;
   grid-template-columns: 1fr 1.25fr;
@@ -841,6 +842,11 @@ nav {
   min-height: 420px;
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   transform-origin: top center;
+
+  /* ✅ ADD THIS */
+  overflow: hidden;
+  position: relative;
+  isolation: isolate;
 }
 
 .case-study.img-right {
@@ -943,6 +949,10 @@ nav {
 /* ---------- Image side ---------- */
 .case-study-image-wrap {
   position: relative;
+  /* ✅ ADD THIS */
+  min-width: 0;
+  max-width: 100%;
+  overflow: visible;  /* keep glow visible, but constrain the image itself */
 }
 
 .case-study-image {
@@ -958,6 +968,10 @@ nav {
   display: grid;
   place-items: center;
   z-index: 2;
+
+  /* ✅ ADD THIS */
+  width: 100%;
+  max-width: 100%;
 }
 
 .case-study-image img {
