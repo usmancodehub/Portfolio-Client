@@ -967,8 +967,8 @@ nav {
 
 .case-study-image {
     align-items: center;
-    background-color: #0d0d12;
-    border: 1px solid #ffffff1f;
+    background: linear-gradient(180deg, #f4f4f2, #ece7e1);
+    border: 1px solid rgba(255,255,255,0.12);
     border-radius: 16px;
     cursor: pointer;
     display: flex;
@@ -976,6 +976,7 @@ nav {
     justify-content: center;
     max-width: 650px;
     overflow: hidden;
+    padding: 12px;
     width: 100%;
 }
 
@@ -983,9 +984,11 @@ nav {
   width: 100%;
   height: 100%;
   max-width: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   display: block;
+  border-radius: 10px;
+  background: transparent;
 }
 
 .case-study-no-image {
