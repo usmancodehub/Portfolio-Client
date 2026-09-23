@@ -42,9 +42,7 @@ export default function Projects() {
         </div>
 
         <div className="case-study-list">
-          {visible.map((project) => (
-            <CaseStudyCard key={project._id} project={project} />
-          ))}
+        
         </div>
       </div>
     </section>
