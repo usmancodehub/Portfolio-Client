@@ -1,100 +1,81 @@
 import React, { useState } from "react";
-import API from "../api/axios";
-import { useData } from "../context/DataContext";
-import useScrollReveal from "../hooks/useScrollReveal";
+// 1. Import the Web3Forms hook and react-hook-form
+import { useForm } from "react-hook-form";
+import useWeb3Forms from "@web3forms/react";
 
 export default function Contact() {
-  useScrollReveal();
-  const { about } = useData();
+  // 2. Initialize react-hook-form
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting },
+  } = useForm();
 
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+  // 3. State for user feedback messages
   const [status, setStatus] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+  // 4. Define your Access Key
+  // Replace this string with the key you copied from Web3Forms
+  const accessKey = "6ceaea0d-b45b-419e-85c9-7ececc4d177a";
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setStatus("Sending...");
-    try {
-      const { data } = await API.post("/contact", form);
-      setStatus(data.message || "Message sent successfully!");
-      setForm({ name: "", email: "", subject: "", message: "" });
-    } catch (err) {
-      setStatus(
-        err.response?.data?.message || "Something went wrong. Try again."
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+  // 5. Initialize the Web3Forms hook
+  const { submit: onSubmit } = useWeb3Forms({
+    access_key: accessKey,
+    settings: {
+      from_name: "Usman Official Portfolio", // Name shown in your inbox
+      subject: "New Contact Message from Portfolio", // Email subject
+    },
+    onSuccess: (msg, data) => {
+      // Runs when the email is sent successfully
+      setStatus("Message sent successfully! I'll get back to you soon.");
+      reset(); // Clear the form fields
+    },
+    onError: (msg, data) => {
+      // Runs if something goes wrong
+      setStatus("Something went wrong. Please try again later.");
+      console.error("Web3Forms Error:", msg);
+    },
+  });
 
   return (
     <section id="contact">
       <div className="container">
-        <h2 className="section-title reveal">
+        <h2 className="section-title">
           Get In <span>Touch</span>
         </h2>
-        <p className="section-subtitle reveal">
+        <p className="section-subtitle">
           Have a project or opportunity? Let's connect.
         </p>
 
         <div className="contact-grid">
-          <div className="contact-card reveal">
-            <h3>{about?.contactTitle || "Let's Work Together"}</h3>
-            <p style={{ whiteSpace: "pre-line" }}>
-              {about?.contactDescription ||
-                "I'm open to internships, collaborations, and exciting development opportunities. Feel free to contact me."}
+          {/* Contact Info Card (Left Side) - Keep as is */}
+          <div className="contact-card">
+            <h3>Let's Work Together</h3>
+            <p>
+              I'm open to internships, collaborations, and exciting development
+              opportunities.
             </p>
-
-            <div className="contact-info">
-              <div>
-                <strong>✉ Email</strong>
-                <p>{about?.email || "mern@example.com"}</p>
-              </div>
-
-              <div>
-                <strong>⌖ Location</strong>
-                <p style={{ whiteSpace: "pre-line" }}>
-                  {about?.contactLocation ||
-                    about?.location ||
-                    "Pakistan — Open to Remote Work"}
-                </p>
-              </div>
-
-              <div>
-                <strong>▣ Availability</strong>
-                <p style={{ whiteSpace: "pre-line" }}>
-                  {about?.availability || "Open to Internship"}
-                </p>
-              </div>
-            </div>
+            {/* ... your contact info divs ... */}
           </div>
 
-          <div className="contact-card reveal">
-            <form className="contact-form" onSubmit={handleSubmit}>
+          {/* Contact Form Card (Right Side) */}
+          <div className="contact-card">
+            {/* 6. Attach onSubmit to the form's handleSubmit */}
+            <form className="contact-form" onSubmit={handleSubmit(onSubmit)}>
               <div className="form-row">
                 <input
                   name="name"
                   type="text"
                   placeholder="Your Name"
-                  value={form.name}
-                  onChange={handleChange}
+                  {...register("name", { required: true })}
                   required
                 />
                 <input
                   name="email"
                   type="email"
                   placeholder="Your Email"
-                  value={form.email}
-                  onChange={handleChange}
+                  {...register("email", { required: true })}
                   required
                 />
               </div>
@@ -102,24 +83,34 @@ export default function Contact() {
                 name="subject"
                 type="text"
                 placeholder="Subject"
-                value={form.subject}
-                onChange={handleChange}
+                {...register("subject", { required: true })}
                 required
               />
               <textarea
                 name="message"
                 placeholder="Your Message"
-                value={form.message}
-                onChange={handleChange}
+                {...register("message", { required: true })}
                 required
               ></textarea>
+
+              {/* Optional: Hidden honeypot field for spam protection */}
+              <input
+                type="checkbox"
+                id="botcheck"
+                className="hidden"
+                style={{ display: "none" }}
+                {...register("botcheck")}
+              ></input>
+
               <button
                 type="submit"
                 className="btn btn-primary"
-                disabled={loading}
+                disabled={isSubmitting}
               >
-                {loading ? "Sending..." : "Send Message →"}
+                {isSubmitting ? "Sending..." : "Send Message →"}
               </button>
+
+              {/* Show success/error message */}
               <p className="form-message">{status}</p>
             </form>
           </div>

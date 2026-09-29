@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@web3forms/react": "^1.1.3",
     "axios": "^1.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.89.0",
     "react-router-dom": "^7.18.4",
     "react-scripts": "5.0.1"
   },
