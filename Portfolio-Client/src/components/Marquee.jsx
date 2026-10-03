@@ -1,28 +1,39 @@
 import React from "react";
-
-const PHRASES = [
-  { text: "Developing ERP & CRM Platforms", style: "outline" },
-  { text: "Creating AI-Powered Solutions", style: "solid" },
-  { text: "Building Scalable Web Applications", style: "outline" },
-  { text: "Crafting Modern User Experiences", style: "solid" },
-];
+import { useData } from "../context/DataContext";
 
 export default function Marquee() {
-  // Duplicate so the loop is seamless
-  const items = [...PHRASES, ...PHRASES];
+  const { marquee } = useData();
+
+  // Fallback if admin hasn't set anything yet
+  const items =
+    marquee && marquee.length > 0
+      ? marquee
+      : [
+          { _id: "1", text: "Developing ERP & CRM Platforms", style: "outline" },
+          { _id: "2", text: "Creating AI-Powered Solutions", style: "solid" },
+          { _id: "3", text: "Building Scalable Web Applications", style: "outline" },
+          { _id: "4", text: "Crafting Modern User Experiences", style: "solid" },
+        ];
+
+  // Triple the array for seamless loop
+  const trackItems = [...items, ...items, ...items];
 
   return (
     <section className="marquee-section" aria-hidden="true">
       <div className="marquee-row">
         <div className="marquee-track">
-          {items.map((phrase, i) => (
+          {trackItems.map((item, i) => (
             <span
-              className={`marquee-item marquee-item-${phrase.style}`}
-              key={i}
+              key={`${item._id}-${i}`}
+              className={`marquee-item ${
+                item.style === "solid"
+                  ? "marquee-item-solid"
+                  : "marquee-item-outline"
+              }`}
             >
-              <Star />
-              <span className="marquee-text">{phrase.text}</span>
-              <Star />
+              <span className="marquee-star">✦</span>
+              <span className="marquee-text">{item.text}</span>
+              <span className="marquee-star">✦</span>
             </span>
           ))}
         </div>
@@ -30,7 +41,6 @@ export default function Marquee() {
     </section>
   );
 }
-
 /* Inline SVG starburst */
 function Star() {
   return (
